@@ -1,0 +1,20 @@
+sudo: false
+dist: trusty
+language: python
+python:
+  - "2.7"
+notifications:
+  email: false
+env:
+  - PYTHONPATH=$PYTHONPATH:$HOME/google-cloud-sdk/platform/google_appengine
+cache:
+  directories:
+    - "$HOME/google-cloud-sdk/"
+install:
+    - $HOME/google-cloud-sdk/install.sh
+    - pip install coveralls
+    - pip install -r dev_requirements.txt
+script:
+    ./build
+after_success:
+    coveralls
