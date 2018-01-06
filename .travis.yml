@@ -1,0 +1,32 @@
+sudo: false
+dist: trusty
+language: python
+python:
+  - "2.7"
+notifications:
+  email: false
+env:
+  - PATH="${PATH}:${HOME}/google-cloud-sdk/bin" PYTHONPATH="${PYTHONPATH}:${HOME}/google-cloud-sdk/platform/google_appengine" CLOUDSDK_CORE_DISABLE_PROMPTS=1
+
+cache:
+  directories:
+    - "$HOME/google-cloud-sdk/"
+install:
+  # If the SDK is not already cached, download it and unpack it
+  - |
+    if [ ! -d ${HOME}/google-cloud-sdk/bin ]; then
+       rm -rf ${HOME}/google-cloud-sdk;
+       curl https://sdk.cloud.google.com | bash;
+    fi
+  - source "${HOME}/google-cloud-sdk/path.bash.inc"
+  - gcloud version
+  - |
+    if [ ! -d ${HOME}/google-cloud-sdk/google/appengine/ext ]; then
+       gcloud components install app-engine-python-extras;
+    fi
+  - pip install coveralls
+  - pip install -r dev_requirements.txt
+script:
+    ./build
+after_success:
+    coveralls
