@@ -19,7 +19,7 @@ install:
     fi
   - |
     if [ ! -d ${HOME}/google-cloud-sdk/google/appengine/ext ]; then
-       gcloud components install app-engine-python-extras;
+       ${HOME}/google-cloud-sdk/bin/gcloud components install app-engine-python-extras;
     fi
   - pip install coveralls
   - pip install -r dev_requirements.txt
