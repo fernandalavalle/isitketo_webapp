@@ -6,7 +6,8 @@ python:
 notifications:
   email: false
 env:
-  - PYTHONPATH=$PYTHONPATH:$HOME/google-cloud-sdk/platform/google_appengine
+  - PYTHONPATH="${PYTHONPATH}:${HOME}/google-cloud-sdk/platform/google_appengine"
+  - PATH="${PATH}:${HOME}/google-cloud-sdk"
 cache:
   directories:
     - "$HOME/google-cloud-sdk/"
