@@ -18,6 +18,7 @@ install:
        curl https://sdk.cloud.google.com | bash;
     fi
   - ls ${HOME}/google-cloud-sdk/google/appengine/ext || ls ${HOME}/
+  - ls ${HOME}/google-cloud-sdk/bin
   - |
     if [ ! -d ${HOME}/google-cloud-sdk/google/appengine/ext ]; then
        ${HOME}/google-cloud-sdk/bin/gcloud components install app-engine-python-extras;
