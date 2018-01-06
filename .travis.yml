@@ -11,14 +11,14 @@ cache:
   directories:
     - "$HOME/google-cloud-sdk/"
 install:
-	# If the SDK is not already cached, download it and unpack it
-	- |
+  # If the SDK is not already cached, download it and unpack it
+  - |
     if [ ! -d ${HOME}/google-cloud-sdk ]; then
-			 curl https://sdk.cloud.google.com | bash;
-		fi
-	- $HOME/google-cloud-sdk/install.sh
-	- pip install coveralls
-	- pip install -r dev_requirements.txt
+       curl https://sdk.cloud.google.com | bash;
+    fi
+  - $HOME/google-cloud-sdk/install.sh
+  - pip install coveralls
+  - pip install -r dev_requirements.txt
 script:
     ./build
 after_success:
