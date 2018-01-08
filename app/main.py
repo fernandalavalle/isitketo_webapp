@@ -23,7 +23,10 @@ def check_food(food_name):
     f = find_food(food_name)
     if f:
         return flask.render_template(
-            'food.html', title=f.title, description=f.description)
+            'food.html',
+            key=f.key.string_id(),
+            title=f.title,
+            description=f.description)
     else:
         return flask.render_template(
             'food.html',
