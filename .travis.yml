@@ -33,3 +33,4 @@ deploy:
   provider: gae
   keyfile: client-secret.json
   project: isitketo-191301
+  config: app/app.yaml
