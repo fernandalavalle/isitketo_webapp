@@ -64,3 +64,6 @@ target/
 # Mac OS
 *.DS_Store
 *.xcworkspace
+
+# GCP service account credentials
+client-secret.json
