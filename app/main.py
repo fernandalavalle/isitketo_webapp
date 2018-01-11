@@ -15,7 +15,7 @@ def find_food(food_name):
 
 @app.route('/')
 def root():
-    return 'Welcome to isitketo! Search to find out if a food is keto-friendly.'
+    return flask.render_template('index.html')
 
 
 @app.route('/<food_name>')
