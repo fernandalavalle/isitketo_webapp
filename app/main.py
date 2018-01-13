@@ -27,13 +27,15 @@ def check_food(food_name):
         return flask.render_template(
             'food.html',
             key=f.key.string_id(),
-            title=('%s - %s' % (f.title, _SITE_TITLE)),
+            page_title=('%s - %s' % (f.title, _SITE_TITLE)),
+            title=f.title,
             rating=f.rating,
             short_description=f.description,
             description=f.description)
     else:
         return flask.render_template(
             'food.html',
+            page_title=_SITE_TITLE,
             title=food_name,
             short_description='We\'re not sure',
             description=
