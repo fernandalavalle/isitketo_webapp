@@ -5,6 +5,8 @@ from google.appengine.ext import ndb
 
 import food
 
+_SITE_TITLE = 'Is It Keto?'
+
 app = flask.Flask(__name__)
 
 
@@ -15,7 +17,7 @@ def find_food(food_name):
 
 @app.route('/')
 def root():
-    return flask.render_template('index.html')
+    return flask.render_template('index.html', title=_SITE_TITLE)
 
 
 @app.route('/<food_name>')
@@ -25,12 +27,14 @@ def check_food(food_name):
         return flask.render_template(
             'food.html',
             key=f.key.string_id(),
-            title=f.title,
+            title=('%s - %s' % (f.title, _SITE_TITLE)),
+            short_description=f.description,
             description=f.description)
     else:
         return flask.render_template(
             'food.html',
             title=food_name,
+            short_description='We\'re not sure',
             description=
             'Hmm, I dunno if that\'s keto... Check back in a bit and I\'ll probably know.'
         )

@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Is {{ title }} Keto?</title>
+    <title>{{ title }}</title>
 
     <!--SEO Stuff-->
     <meta name="description" content="Is It Keto helps you quickly identify which foods fit the keto diet.">
@@ -16,16 +16,20 @@
     <!-- Configuration -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#ffffff">
-    <meta property="og:url" content="https://isitketo.org/{{ key }}">
+    {% if key %}
+      <meta property="og:url" content="https://isitketo.org/{{ key }}">
+    {% else %}
+      <meta property="og:url" content="https://isitketo.org/">
+    {% endif %}
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Is It Keto?">
-    <meta property="og:title" content="Is {{ title }} Keto?">
-    <meta property="og:description" content="{{ description }}">
+    <meta property="og:title" content="{{ title }}">
+    <meta property="og:description" content="{{ short_description }}">
 
     <!-- Twitter properties -->
     <meta name="twitter:site" content="@ketocheck" />
-    <meta name="twitter:description" content="{{ description }}">
+    <meta name="twitter:description" content="{{ short_description }}">
 
     <!-- Facebook properties -->
     <meta property="fb:app_id" content="1583652028393028" />
