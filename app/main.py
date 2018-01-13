@@ -34,13 +34,9 @@ def check_food(food_name):
             description=f.description)
     else:
         return flask.render_template(
-            'food.html',
-            page_title=_SITE_TITLE,
+            'unknown_food.html',
             title=food_name,
-            short_description='We\'re not sure',
-            description=
-            'Hmm, I dunno if that\'s keto... Check back in a bit and I\'ll probably know.'
-        )
+            short_description='We\'re not sure')
 
 
 @app.route('/favicon.ico')
