@@ -7,7 +7,21 @@ h1 {
   margin-bottom: 15px;
 }
 
+p.answer {
+  font-size: 14pt;
+  margin: 5px 0px 60px 0px;
+}
+
 img.meter {
   width: 100%;
   max-width: 600px;
+}
+
+img.food-main {
+  width: 100%;
+  max-width: 600px;
+}
+
+h2 {
+  margin: 18px 0px;
 }
