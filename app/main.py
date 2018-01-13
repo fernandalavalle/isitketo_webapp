@@ -30,12 +30,13 @@ def check_food(food_name):
             page_title=('%s - %s' % (f.title, _SITE_TITLE)),
             title=f.title,
             rating=f.rating,
-            short_description=f.description,
+            short_description=f.short_description,
             description=f.description)
     else:
         return flask.render_template(
             'unknown_food.html',
             title=food_name,
+            page_title=_SITE_TITLE,
             short_description='We\'re not sure')
 
 
