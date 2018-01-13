@@ -25,3 +25,17 @@ img.food-main {
 h2 {
   margin: 18px 0px;
 }
+
+hr {
+  margin-top: 100px;
+}
+
+div.ketohub img {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 30px;
+}
+
+div.ketohub p {
+  font-height: 14pt;
+}
