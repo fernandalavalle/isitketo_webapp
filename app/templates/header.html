@@ -26,10 +26,22 @@
     <meta property="og:site_name" content="Is It Keto?">
     <meta property="og:title" content="{{ page_title }}">
     <meta property="og:description" content="{{ short_description }}">
+    {% if rating %}
+      <meta property="og:image" content="https://storage.googleapis.com/isitketo/isitketo-meter-{{ rating }}-600w.png">
+    {% endif %}
 
     <!-- Twitter properties -->
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@ketocheck" />
     <meta name="twitter:description" content="{{ short_description }}">
+    {% if key %}
+      <meta property="twitter:url" content="https://isitketo.org/{{ key }}">
+    {% else %}
+      <meta property="twitter:url" content="https://isitketo.org/">
+    {% endif %}
+    {% if rating %}
+      <meta property="twitter:image" content="https://storage.googleapis.com/isitketo/isitketo-meter-{{ rating }}-600w.png">
+    {% endif %}
 
     <!-- Facebook properties -->
     <meta property="fb:app_id" content="1583652028393028" />
