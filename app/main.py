@@ -28,6 +28,7 @@ def check_food(food_name):
             'food.html',
             key=f.key.string_id(),
             title=('%s - %s' % (f.title, _SITE_TITLE)),
+            rating=f.rating,
             short_description=f.description,
             description=f.description)
     else:
