@@ -14,8 +14,14 @@ app = flask.Flask(__name__)
 
 
 def find_food(food_name):
-    key = ndb.Key(food.Food, food_name)
+    key = _food_name_to_key(food_name)
     return key.get()
+
+
+def _food_name_to_key(food_name):
+    key = food_name.lower()
+    key = re.sub(r'[^a-z]', '-', key)
+    return ndb.Key(food.Food, key)
 
 
 def _sanitize_food_name(food_name):
