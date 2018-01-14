@@ -17,7 +17,7 @@ def find_food(food_name):
 
 @app.route('/')
 def root():
-    return flask.render_template('index.html', title=_SITE_TITLE)
+    return flask.render_template('index.html', page_title=_SITE_TITLE)
 
 
 @app.route('/<food_name>')
