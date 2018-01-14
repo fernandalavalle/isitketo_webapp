@@ -4,6 +4,7 @@ import re
 import flask
 from google.appengine.ext import ndb
 
+import auth_manager
 import email_validator
 import food
 import subscriber
@@ -60,6 +61,26 @@ def add_subscriber():
     s = subscriber.SubscriberModel(email=email, food_name=food_name)
     s.put()
     return flask.jsonify({'success': True})
+
+
+@app.route('/api/admin/add', methods=['POST'])
+def api_add_food():
+    if not auth_manager.is_request_authorized(flask.request):
+        logging.warning('Unauthorized attempt to access add API')
+        flask.abort(403)
+    title = flask.request.form.get('title')
+    short_description = flask.request.form.get('short-description')
+    description = flask.request.form.get('description')
+    rating = int(flask.request.form.get('rating'))
+
+    f = food.Food(
+        title=title,
+        short_description=short_description,
+        description=description,
+        rating=rating)
+    f.key = _food_name_to_key(title)
+    f.put()
+    return flask.redirect('/%s' % f.key.string_id(), 203)
 
 
 @app.route('/<food_name>')
