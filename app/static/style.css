@@ -1,6 +1,10 @@
 nav {
   margin-bottom: 35px;
   background-color: #f4efe0 !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center;
+  justify-content: space-between;
 }
 
 #query {
