@@ -1,8 +1,21 @@
 {% include 'header.html' %}
 
-  <div class="container">
+  <div class="container unknown-food">
     <h1>{{ title }}</h1>
-    <p>Hmm, we don't know whether that food is keto yet.</p>
+    <p class="text-info">Hmm, we don't know whether that food is keto yet.</p>
+    <p class="text-info">Enter your email below and we'll let you know when we have an answer for you.</p>
+    <form id="food-subscribe">
+      <input type="email" class="form-control" id="subscribe-email" name="email" placeholder="you@example.com">
+
+      <input type="hidden" name="food-name" value="{{ title }}" />
+      <input id="subscribe-btn" class="btn btn-primary subsribe-btn" type="submit" value="Notify Me" />
+    </form>
+    <div class="alert alert-danger" id="subscribe-failed">
+      <strong>Error:</strong> <span id="subscribe-error">&nbsp;</span>
+    </div>
+    <div class="alert alert-success" id="subscribe-succeeded">
+      <strong>Thanks!</strong> We'll have your answer soon.
+    </div>
   </div>
 
 {% include 'footer.html' %}

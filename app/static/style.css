@@ -12,16 +12,24 @@ nav {
   margin: 5px 0px;
 }
 
-.home .search-btn {
+.btn {
   font-size: 18pt;
   width: 100%;
   margin: 5px 0px;
 }
 
 @media screen and (min-width: 768px) {
-  .home form {
+  form {
     width: 40%;
   }
+
+  .alert {
+    width: 40%;
+  }
+}
+
+.alert {
+  display: none;
 }
 
 .home .intro {
@@ -53,6 +61,12 @@ h2 {
 
 hr {
   margin-top: 100px;
+}
+
+@media screen and (min-width: 768px) {
+  .unknown-food subscribe-btn {
+    width: auto;
+  }
 }
 
 @media screen and (min-width: 768px) {
