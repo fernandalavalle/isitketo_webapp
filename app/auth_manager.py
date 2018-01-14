@@ -7,5 +7,4 @@ def is_request_authorized(request):
     token = request.form.get('token')
     digest = hashlib.pbkdf2_hmac('sha256', token, b'pretzel house', 10000)
     return binascii.hexlify(
-        digest
-    ) == b'79f7a50742e7dfad41993b5edf3b1954246efc52b0f46c711bcc65cdd3ed8d9c'
+        digest) == b'487e77206426696f2f7449367e33502a266a5a4930232667463a'
