@@ -1,11 +1,15 @@
 {% include 'header.html' %}
 
-<div class="container">
-  <h1>Welcome to IsItKeto!</h1>
-  <h2>Search to find out if a food is keto-friendly.</h2>
+<div class="container home">
+  <div class="intro">
+    <p>Wondering which foods are keto and which are not?</p>
+    <p>We'll tell you!</p>
+  </div>
   <form onsubmit="location.href='https://isitketo.org/' + document.getElementById('query').value; return false;">
-    <input type="text" id="query" /><br />
-    <input type="submit" value="Is it keto?" />
+    <div class=form-group">
+      <label for="query">Search food or product:</label>
+      <input type="text" id="query" class="form-control" placeholder="&ldquo;sushi&rdquo; or &ldquo;Diet Coke&rdquo;" />
+      <input class="btn btn-primary search-btn" type="submit" value="Is It Keto?" />
   </form>
 </div>
 
