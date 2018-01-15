@@ -1,0 +1,34 @@
+{% include 'header.html' %}
+
+  <div class="container">
+    <p>Welcome, <span class="nickname">{{ nickname }}</span>.</p>
+    <form action="/api/admin/add" method="post">
+
+			<div class="form-group">
+				<label for="add-food-title">Title</label>
+				<input type="text" class="form-control" id="add-food-title" name="title">
+			</div>
+			<div class="form-group">
+				<label for="add-food-short-description">Short Description</label>
+				<input type="text" class="form-control" id="add-food-short-description" name="short-description">
+			</div>
+			<div class="form-group">
+				<label for="add-food-rating">Rating</label>
+				<select class="form-control" id="add-food-rating" name="rating">
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="add-food-description">Description</label>
+				<textarea class="form-control" id="add-food-description" name="description" rows="10"></textarea>
+			</div>
+      <input type="submit" class="btn btn-primary" value="Add" />
+    </form>
+  </div>
+
+{% include 'footer.html' %}
+
