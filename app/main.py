@@ -57,12 +57,9 @@ def check_food(food_name):
     if f:
         return flask.render_template(
             'food.html',
-            key=f.key.string_id(),
-            page_title=('%s - %s' % (f.title, _SITE_TITLE)),
-            title=f.title,
-            rating=f.rating,
-            short_description=f.short_description,
-            description=f.description)
+            food=f,
+            name=food.food_to_name(f),
+            page_title=('%s - %s' % (food.food_to_name(f), _SITE_TITLE)))
     else:
         return flask.render_template(
             'unknown_food.html',
