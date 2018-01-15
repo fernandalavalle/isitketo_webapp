@@ -8,19 +8,26 @@ app = flask.Flask(__name__)
 
 @app.route('/api/admin/add', methods=['POST'])
 def api_add_food():
+    brand = flask.request.form.get('brand')
     title = flask.request.form.get('title')
+    variety = flask.request.form.get('variety')
     short_description = flask.request.form.get('short-description')
     description = flask.request.form.get('description')
     rating = int(flask.request.form.get('rating'))
 
+    has_image = flask.request.form.get('has-image') != None
+
     f = food.Food(
+        brand=brand,
         title=title,
+        variety=variety,
         short_description=short_description,
         description=description,
-        rating=rating)
-    f.key = food.name_to_key(title)
+        rating=rating,
+        has_image=has_image)
+    f.key = food.name_to_key(food.food_to_name(f))
     f.put()
-    return flask.redirect('/%s' % f.key.string_id(), 203)
+    return flask.redirect('/%s' % f.key.string_id())
 
 
 @app.route('/admin/add_food')

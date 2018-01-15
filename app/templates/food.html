@@ -1,13 +1,18 @@
 {% include 'header.html' %}
 
-  <div class="container">
-    <h1>{{ title }}</h1>
-    <img class="img-responsive meter" src="https://storage.googleapis.com/isitketo/isitketo-meter-{{ rating }}-600w.png" alt="Keto Meter: {{ rating }}" />
-    <p class="answer"><b>Answer</b>: {{ short_description }}</p>
-    <img class="food-main img-responsive" src="https://storage.googleapis.com/isitketo/{{ key }}-600w.jpg" alt="{{ title }}" />
-    <h2>Explanation</h2>
-    <p class="explanation">{{ description }}</p>
-  </div>
+<div class="container">
+  <h1>{{ name }}</h1>
+
+  <img class="img-responsive meter" src="https://storage.googleapis.com/isitketo/isitketo-meter-{{ food.rating }}-600w.png" alt="Keto Meter: {{ food.rating }}" />
+  <p class="answer"><b>Answer</b>: {{ food.short_description }}</p>
+
+  {% if food.has_image %}
+    <img class="food-main img-responsive" src="https://storage.googleapis.com/isitketo/{{ food.key.string_id() }}-600w.jpg" alt="{{ name }}" />
+  {% endif %}
+
+  <h2>Explanation</h2>
+  <p class="explanation">{{ food.description }}</p>
+</div>
 
 {% include 'footer.html' %}
 
