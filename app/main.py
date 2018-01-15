@@ -65,7 +65,6 @@ def check_food(food_name):
             'unknown_food.html',
             title=food_name,
             page_title=_SITE_TITLE,
-            short_description='We\'re not sure',
             load_js=True)
 
 

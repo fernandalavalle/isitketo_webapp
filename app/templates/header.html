@@ -18,8 +18,8 @@
     <!-- Configuration -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#ffffff">
-    {% if key %}
-      <meta property="og:url" content="https://isitketo.org/{{ key }}">
+    {% if food %}
+      <meta property="og:url" content="https://isitketo.org/{{ food.key }}">
     {% else %}
       <meta property="og:url" content="https://isitketo.org/">
     {% endif %}
@@ -28,21 +28,25 @@
     <meta property="og:site_name" content="Is It Keto?">
     <meta property="og:title" content="{{ page_title }}">
     <meta property="og:description" content="{{ short_description }}">
-    {% if rating %}
-      <meta property="og:image" content="https://storage.googleapis.com/isitketo/isitketo-meter-{{ rating }}-square-600w.png">
+    {% if food %}
+      <meta property="og:image" content="https://storage.googleapis.com/isitketo/isitketo-meter-{{ food.rating }}-square-600w.png">
+    {% else %}
+      <meta property="og:image" content="https://storage.googleapis.com/isitketo/isitketo-meter-3-square-600w.png">
     {% endif %}
 
     <!-- Twitter properties -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@ketocheck" />
-    <meta name="twitter:description" content="{{ short_description }}">
-    {% if key %}
-      <meta property="twitter:url" content="https://isitketo.org/{{ key }}">
+    {% if food %}
+      <meta name="twitter:description" content="{{ food.short_description }}">
+    {% endif %}
+    {% if food %}
+      <meta property="twitter:url" content="https://isitketo.org/{{ food.key }}">
     {% else %}
       <meta property="twitter:url" content="https://isitketo.org/">
     {% endif %}
-    {% if rating %}
-      <meta property="twitter:image" content="https://storage.googleapis.com/isitketo/isitketo-meter-{{ rating }}-600w.png">
+    {% if food %}
+      <meta property="twitter:image" content="https://storage.googleapis.com/isitketo/isitketo-meter-{{ food.rating }}-600w.png">
     {% endif %}
 
     <!-- Facebook properties -->
