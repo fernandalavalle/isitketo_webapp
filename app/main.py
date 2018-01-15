@@ -2,9 +2,7 @@ import logging
 import re
 
 import flask
-from google.appengine.ext import ndb
 
-import auth_manager
 import email_validator
 import food
 import subscriber
@@ -12,17 +10,6 @@ import subscriber
 _SITE_TITLE = 'Is It Keto?'
 
 app = flask.Flask(__name__)
-
-
-def find_food(food_name):
-    key = _food_name_to_key(food_name)
-    return key.get()
-
-
-def _food_name_to_key(food_name):
-    key = food_name.lower()
-    key = re.sub(r'[^a-z]', '-', key)
-    return ndb.Key(food.Food, key)
 
 
 def _sanitize_food_name(food_name):
@@ -63,30 +50,10 @@ def add_subscriber():
     return flask.jsonify({'success': True})
 
 
-@app.route('/api/admin/add', methods=['POST'])
-def api_add_food():
-    if not auth_manager.is_request_authorized(flask.request):
-        logging.warning('Unauthorized attempt to access add API')
-        flask.abort(403)
-    title = flask.request.form.get('title')
-    short_description = flask.request.form.get('short-description')
-    description = flask.request.form.get('description')
-    rating = int(flask.request.form.get('rating'))
-
-    f = food.Food(
-        title=title,
-        short_description=short_description,
-        description=description,
-        rating=rating)
-    f.key = _food_name_to_key(title)
-    f.put()
-    return flask.redirect('/%s' % f.key.string_id(), 203)
-
-
 @app.route('/<food_name>')
 def check_food(food_name):
     food_name = _sanitize_food_name(food_name)
-    f = find_food(food_name)
+    f = food.find_by_name(food_name)
     if f:
         return flask.render_template(
             'food.html',

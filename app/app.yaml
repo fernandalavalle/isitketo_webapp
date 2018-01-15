@@ -3,8 +3,17 @@ api_version: 1
 threadsafe: true
 
 handlers:
+- url: /api/admin/.*
+  script: admin.app
+  login: admin
+
+- url: /admin/.*
+  script: admin.app
+  login: admin
+
 - url: /static
   static_dir: static
+
 - url: /.*
   script: main.app
 
