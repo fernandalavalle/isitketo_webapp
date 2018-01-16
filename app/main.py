@@ -50,7 +50,8 @@ def add_subscriber():
         raise InvalidUsage('Invalid email address')
     food_name = flask.request.form.get('food-name')
     if not food_name:
-        logging.error('Subscribe failed due to invalid food name: [%s]', food_name)
+        logging.error('Subscribe failed due to invalid food name: [%s]',
+                      food_name)
         raise InvalidUsage('Invalid food name')
     s = subscriber.SubscriberModel(email=email, food_name=food_name)
     s.put()
