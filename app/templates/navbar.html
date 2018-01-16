@@ -1,8 +1,6 @@
 <nav class="navbar navbar-light">
   <a class="navbar-brand" href="/">IsItKeto?</a>
-  {% if title %}
-    <form onsubmit="location.href='https://isitketo.org/' + document.getElementById('query').value; return false;">
+    <form onsubmit="location.href='/' + document.getElementById('query').value; return false;">
         <input type="text" id="query" class="form-control" placeholder="Search" />
     </form>
-  {% endif %}
 </nav>
