@@ -11,7 +11,7 @@
   {% endif %}
 
   <h2>Explanation</h2>
-  <p class="explanation">{{ food.description }}</p>
+  <p class="explanation">{{ description_formatted | safe }}</p>
 </div>
 
 {% include 'footer.html' %}

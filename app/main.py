@@ -16,6 +16,11 @@ def _sanitize_food_name(food_name):
     return re.sub(r'[^a-zA-Z\-\.\s&*\+:0-9]', '', food_name)
 
 
+def _format_description(description):
+    paragraphs = filter(None, description.split('\n'))
+    return '<p>' + '</p><p>'.join(paragraphs) + '</p>'
+
+
 class InvalidUsage(Exception):
     status_code = 400
 
@@ -59,6 +64,7 @@ def check_food(food_name):
             'food.html',
             food=f,
             name=food.food_to_name(f),
+            description_formatted=_format_description(f.description),
             page_title=('%s - %s' % (food.food_to_name(f), _SITE_TITLE)))
     else:
         return flask.render_template(
