@@ -43,6 +43,11 @@ def root():
     return flask.render_template('index.html', page_title=_SITE_TITLE)
 
 
+@app.route('/sitemap.xml')
+def generate_sitemap():
+    return sitemap.get()
+
+
 @app.route('/api/subscribe', methods=['POST'])
 def add_subscriber():
     email = flask.request.form.get('email')
@@ -76,11 +81,6 @@ def check_food(food_name):
             title=food_name,
             page_title=_SITE_TITLE,
             load_js=True)
-
-
-@app.route('/sitemap.xml')
-def favicon():
-    return sitemap.get()
 
 
 @app.errorhandler(500)
