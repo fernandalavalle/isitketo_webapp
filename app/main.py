@@ -5,6 +5,7 @@ import flask
 
 import email_validator
 import food
+import sitemap
 import subscriber
 
 _SITE_TITLE = 'Is It Keto?'
@@ -77,9 +78,9 @@ def check_food(food_name):
             load_js=True)
 
 
-@app.route('/favicon.ico')
+@app.route('/sitemap.xml')
 def favicon():
-    flask.abort(404)
+    return sitemap.get()
 
 
 @app.errorhandler(500)
