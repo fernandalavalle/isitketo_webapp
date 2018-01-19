@@ -1,4 +1,6 @@
-sudo: false
+sudo: required
+services:
+  - docker
 dist: trusty
 language: python
 python:
