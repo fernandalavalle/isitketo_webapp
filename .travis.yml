@@ -24,6 +24,7 @@ install:
   fi
 - pip install coveralls
 - pip install -r dev_requirements.txt
+- pip install selenium==3.8.1
 script: "./build"
 after_success: coveralls
 before_deploy:

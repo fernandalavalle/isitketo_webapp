@@ -25,3 +25,12 @@ pyflakes app/*.py tests/*.py
 # Check docstrings for style consistency.
 PYTHONPATH=$PYTHONPATH:$(pwd)/third_party/docstringchecker \
   pylint --reports=n app tests
+
+if [ "$1" != "--quick" ]; then
+  pushd e2e;
+  docker-compose up -d;
+  python e2e.py \
+    --selenium_hub_url=http://127.0.0.1:4444/wd/hub \
+    --app_url=http://isitketo_dev:8080;
+  popd;
+fi

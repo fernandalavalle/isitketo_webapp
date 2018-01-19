@@ -1,0 +1,29 @@
+FROM debian:stretch-20171210
+
+COPY ./app /app
+COPY ./testdata/isitketo_dev_datastore app/
+WORKDIR app/
+
+# Install dependencies
+RUN apt-get update \
+  && apt-get install -y curl python-minimal python-pip
+
+ENV PATH "${PATH}:${HOME}/google-cloud-sdk/bin"
+ENV PYTHONPATH "${PYTHONPATH}:${HOME}/google-cloud-sdk/platform/google_appengine"
+ENV CLOUDSDK_CORE_DISABLE_PROMPTS 1
+
+RUN curl https://sdk.cloud.google.com | bash \
+  && ${HOME}/google-cloud-sdk/bin/gcloud version \
+  && ${HOME}/google-cloud-sdk/bin/gcloud components install app-engine-python-extras
+
+EXPOSE 8080
+EXPOSE 8000
+
+CMD ${HOME}/google-cloud-sdk/bin/dev_appserver.py \
+  --enable_host_checking False \
+  --host 0.0.0.0 \
+  --port 8080 \
+  --admin_host 0.0.0.0 \
+  --admin_port 8000 \
+  --datastore_path isitketo_dev_datastore \
+  app.yaml
