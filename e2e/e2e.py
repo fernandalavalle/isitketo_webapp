@@ -4,7 +4,10 @@ import logging
 import time
 
 from selenium import webdriver
+from selenium.webdriver.common import by
 from selenium.webdriver.common import keys
+from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support import ui
 
 logger = logging.getLogger(__name__)
 
@@ -19,9 +22,9 @@ class UnexpectedValueError(Error):
 
 def main(args):
     _configure_logging()
-
-    with contextlib.closing(_load_browser(args.selenium_hub_url)) as browser:
-        TestFlow(browser, args.app_url).start()
+    for browser_name in ('chrome', 'firefox'):
+        with contextlib.closing(_load_browser(browser_name, args.selenium_hub_url)) as browser:
+            TestFlow(browser, args.app_url).start()
 
 
 def _configure_logging():
@@ -34,8 +37,8 @@ def _configure_logging():
     root_logger.setLevel(logging.INFO)
 
 
-def _load_browser(selenium_hub_url):
-    logger.info('loading remote webdriver at %s', selenium_hub_url)
+def _load_browser(browser_name, selenium_hub_url):
+    logger.info('loading remote webdriver: %s at %s', browser_name, selenium_hub_url)
     attempts = 0
     MAX_ATTEMPTS = 10
     while True:
@@ -43,7 +46,7 @@ def _load_browser(selenium_hub_url):
             return webdriver.Remote(
                 command_executor=selenium_hub_url,
                 desired_capabilities={
-                    'browserName': 'chrome',
+                    'browserName': browser_name,
                     'javascriptEnabled': True
                 })
         except Exception as e:
@@ -62,6 +65,13 @@ class TestFlow(object):
         self._app_url = app_url
 
     def start(self):
+        try:
+            self._do_flow()
+        except:
+            self._dump_debug()
+            raise
+
+    def _do_flow(self):
         self._load_homepage()
 
         self._search('diet coke')
@@ -92,12 +102,21 @@ class TestFlow(object):
 
     def _verify_meta_property(self, property_name, expected_value):
         xpath = '//meta[@property="%s"]' % property_name
+        self._wait_for_element(xpath)
         element = self._browser.find_element_by_xpath(xpath)
         actual_value = element.get_attribute('content')
         if expected_value != actual_value:
             raise UnexpectedValueError(
                 'Unexpected value for %s. Want %s, got %s', property_name,
                 expected_value, actual_value)
+
+    def _wait_for_element(self, xpath):
+        element_present = expected_conditions.presence_of_element_located((by.By.XPATH, xpath))
+        ui.WebDriverWait(self._browser, timeout=5).until(element_present)
+
+    def _dump_debug(self):
+        self._browser.save_screenshot('screenshot.png')
+        logging.warning(self._browser.page_source)
 
 
 if __name__ == '__main__':
