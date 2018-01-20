@@ -19,7 +19,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#ffffff">
     {% if food %}
-      <meta property="og:url" content="https://isitketo.org/{{ food.key }}">
+      <meta property="og:url" content="https://isitketo.org/{{ food.key.string_id() }}">
     {% else %}
       <meta property="og:url" content="https://isitketo.org/">
     {% endif %}
@@ -41,7 +41,7 @@
       <meta name="twitter:description" content="{{ food.short_description }}">
     {% endif %}
     {% if food %}
-      <meta property="twitter:url" content="https://isitketo.org/{{ food.key }}">
+      <meta property="twitter:url" content="https://isitketo.org/{{ food.key.string_id() }}">
     {% else %}
       <meta property="twitter:url" content="https://isitketo.org/">
     {% endif %}
