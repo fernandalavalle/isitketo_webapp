@@ -12,13 +12,10 @@ services:
     environment:
       - HUB_PORT_4444_TCP_ADDR=selenium-hub
       - HUB_PORT_4444_TCP_PORT=4444
-    links:
-      - isitketo_dev
   isitketo_dev:
     build:
       context: .
       dockerfile: Dockerfile.isitketo_dev
-    expose:
-      - "8080"
     ports:
       - "8000:8000"
+      - "8080:8080"
