@@ -12,26 +12,17 @@ def main(args):
     _configure_logging()
 
     with contextlib.closing(_load_browser(args.selenium_hub_url)) as browser:
-        _run_e2e_flow(browser, args.app_url)
+        TestFlow(browser, args.app_url).start()
 
 
-def _run_e2e_flow(browser, app_url):
-    logger.info('loading app: %s', app_url)
-    browser.get(app_url)
-
-    logger.info('Page Title: [%s]', browser.title)
-    browser.save_screenshot('main-page.png')
-
-    logger.info('finding query element')
-    elem = browser.find_element_by_id('query')
-    elem.send_keys('diet coke')
-    elem.send_keys(keys.Keys.RETURN)
-    browser.save_screenshot('diet-coke.png')
-
-    elem = browser.find_element_by_id('query')
-    elem.send_keys('sushi')
-    elem.send_keys(keys.Keys.RETURN)
-    browser.save_screenshot('sushi.png')
+def _configure_logging():
+    """Configure the root logger for log output."""
+    root_logger = logging.getLogger()
+    handler = logging.StreamHandler()
+    formatter = logging.Formatter('%(asctime)s %(levelname)-8s %(message)s')
+    handler.setFormatter(formatter)
+    root_logger.addHandler(handler)
+    root_logger.setLevel(logging.INFO)
 
 
 def _load_browser(selenium_hub_url):
@@ -53,14 +44,26 @@ def _load_browser(selenium_hub_url):
             raise
 
 
-def _configure_logging():
-    """Configure the root logger for log output."""
-    root_logger = logging.getLogger()
-    handler = logging.StreamHandler()
-    formatter = logging.Formatter('%(asctime)s %(levelname)-8s %(message)s')
-    handler.setFormatter(formatter)
-    root_logger.addHandler(handler)
-    root_logger.setLevel(logging.INFO)
+class TestFlow(object):
+
+    def __init__(self, browser, app_url):
+        self._browser = browser
+        self._app_url = app_url
+
+    def start(self):
+        self._load_homepage()
+        self._search('diet coke')
+        self._search('sushi')
+
+    def _load_homepage(self):
+        logger.info('loading app: %s', self._app_url)
+        self._browser.get(self._app_url)
+
+    def _search(self, query):
+        logger.info('searching for [%s]', query)
+        search_input = self._browser.find_element_by_id('query')
+        search_input.send_keys(query)
+        search_input.send_keys(keys.Keys.RETURN)
 
 
 if __name__ == '__main__':
