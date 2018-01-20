@@ -23,7 +23,8 @@ class UnexpectedValueError(Error):
 def main(args):
     _configure_logging()
     for browser_name in ('chrome', 'firefox'):
-        with contextlib.closing(_load_browser(browser_name, args.selenium_hub_url)) as browser:
+        with contextlib.closing(
+                _load_browser(browser_name, args.selenium_hub_url)) as browser:
             TestFlow(browser, args.app_url).start()
 
 
@@ -38,7 +39,8 @@ def _configure_logging():
 
 
 def _load_browser(browser_name, selenium_hub_url):
-    logger.info('loading remote webdriver: %s at %s', browser_name, selenium_hub_url)
+    logger.info('loading remote webdriver: %s at %s', browser_name,
+                selenium_hub_url)
     attempts = 0
     MAX_ATTEMPTS = 10
     while True:
@@ -111,7 +113,8 @@ class TestFlow(object):
                 expected_value, actual_value)
 
     def _wait_for_element(self, xpath):
-        element_present = expected_conditions.presence_of_element_located((by.By.XPATH, xpath))
+        element_present = expected_conditions.presence_of_element_located(
+            (by.By.XPATH, xpath))
         ui.WebDriverWait(self._browser, timeout=5).until(element_present)
 
     def _dump_debug(self):
