@@ -31,6 +31,7 @@ if [ "$1" != "--quick" ]; then
   rm -rf app
   cp -R ../app ./
   docker-compose up -d
+  sleep 30
   python e2e.py \
     --selenium_hub_url=http://127.0.0.1:4444/wd/hub \
     --app_url=http://isitketo_dev:8080
