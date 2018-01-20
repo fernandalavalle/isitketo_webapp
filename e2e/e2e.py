@@ -1,6 +1,7 @@
 import argparse
 import contextlib
 import logging
+import time
 
 from selenium import webdriver
 from selenium.webdriver.common import keys
@@ -39,7 +40,9 @@ def _load_browser(selenium_hub_url):
                 })
         except Exception as e:
             if attempts < MAX_ATTEMPTS:
+                logging.warning('Failed to connect to webdriver: %s', e.message)
                 attempts += 1
+                time.sleep(2)
                 continue
             raise
 
