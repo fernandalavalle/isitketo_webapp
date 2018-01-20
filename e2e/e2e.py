@@ -9,6 +9,14 @@ from selenium.webdriver.common import keys
 logger = logging.getLogger(__name__)
 
 
+class Error(Exception):
+    pass
+
+
+class UnexpectedValueError(Error):
+    pass
+
+
 def main(args):
     _configure_logging()
 
@@ -55,8 +63,22 @@ class TestFlow(object):
 
     def start(self):
         self._load_homepage()
+
         self._search('diet coke')
+        self._verify_meta_property('og:title', u'Diet Coke - Is It Keto?')
+        self._verify_meta_property(
+            'og:image',
+            u'https://storage.googleapis.com/isitketo/isitketo-meter-5-square-600w.png'
+        )
+        self._verify_meta_property('og:url', u'https://isitketo.org/diet-coke')
+
         self._search('sushi')
+        self._verify_meta_property('og:title', u'Sushi - Is It Keto?')
+        self._verify_meta_property(
+            'og:image',
+            u'https://storage.googleapis.com/isitketo/isitketo-meter-2-square-600w.png'
+        )
+        self._verify_meta_property('og:url', u'https://isitketo.org/sushi')
 
     def _load_homepage(self):
         logger.info('loading app: %s', self._app_url)
@@ -67,6 +89,15 @@ class TestFlow(object):
         search_input = self._browser.find_element_by_id('query')
         search_input.send_keys(query)
         search_input.send_keys(keys.Keys.RETURN)
+
+    def _verify_meta_property(self, property_name, expected_value):
+        xpath = '//meta[@property="%s"]' % property_name
+        element = self._browser.find_element_by_xpath(xpath)
+        actual_value = element.get_attribute('content')
+        if expected_value != actual_value:
+            raise UnexpectedValueError(
+                'Unexpected value for %s. Want %s, got %s', property_name,
+                expected_value, actual_value)
 
 
 if __name__ == '__main__':
