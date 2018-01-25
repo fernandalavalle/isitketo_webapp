@@ -25,8 +25,7 @@ def api_add_food():
         description=description,
         rating=rating,
         has_image=has_image)
-    f.key = food.name_to_key(food.food_to_name(f))
-    f.put()
+    food.put(f)
     return flask.redirect('/%s' % f.key.string_id())
 
 

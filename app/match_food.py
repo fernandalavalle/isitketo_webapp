@@ -1,0 +1,25 @@
+import re
+
+import food
+
+_PLURAL_SUFFIX_PATTERN = re.compile(r'e?s$', flags=re.IGNORECASE)
+
+
+def match(food_name):
+    for fix_fn in (_remove_plural, _add_plural):
+        fixed_name = fix_fn(food_name).lower()
+        if food.find_by_name(fixed_name):
+            return fixed_name
+
+    return None
+
+
+def _remove_plural(food_name):
+    return _PLURAL_SUFFIX_PATTERN.sub('', food_name)
+
+
+def _add_plural(food_name):
+    if food_name.lower().endswith('x') or food_name.lower().endswith('s'):
+        return food_name + 'es'
+    else:
+        return food_name + 's'

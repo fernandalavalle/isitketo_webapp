@@ -5,6 +5,7 @@ import flask
 
 import email_validator
 import food
+import match_food
 import sitemap
 import subscriber
 
@@ -75,6 +76,10 @@ def check_food(food_name):
             name=food.food_to_name(f),
             description_formatted=_format_description(f.description),
             page_title=('%s - %s' % (food.food_to_name(f), _SITE_TITLE)))
+
+    matching_name = match_food.match(food_name)
+    if matching_name:
+        return flask.redirect('%s' % matching_name)
     else:
         return flask.render_template(
             'unknown_food.html',

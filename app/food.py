@@ -14,6 +14,12 @@ class Food(ndb.Model):
     has_image = ndb.BooleanProperty()
 
 
+def put(food):
+    """Inserts food into datastore."""
+    food.key = name_to_key(food_to_name(food))
+    food.put()
+
+
 def find_by_name(name):
     key = name_to_key(name)
     return key.get()
@@ -25,9 +31,9 @@ def name_to_key(name):
     return ndb.Key(Food, key)
 
 
-def food_to_name(f):
+def food_to_name(food):
     parts = []
-    for part in (f.brand, f.title, f.variety):
+    for part in (food.brand, food.title, food.variety):
         if part:
             parts.append(part)
     return ' '.join(parts)
