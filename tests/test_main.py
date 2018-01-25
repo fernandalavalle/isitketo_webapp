@@ -3,6 +3,7 @@ import unittest
 from google.appengine.ext import ndb
 from google.appengine.ext import testbed
 
+from app import food
 from app import main
 from app import subscriber
 
@@ -29,6 +30,17 @@ class MainTest(unittest.TestCase):
     def test_unknown_food_returns_404(self):
         r = self.client.get('/madeupfood')
         self.assertEqual(404, r.status_code)
+
+    def test_auto_redirects_when_s_suffix_is_available(self):
+        food.put(
+            food.Food(
+                title='egg',
+                short_description='yes',
+                rating=5,
+                description='yes totally fine'))
+        # 'eggs' should redirect to 'egg'
+        r = self.client.get('/eggs')
+        self.assertEqual(302, r.status_code)
 
     def test_add_subscriber_stores_valid_values(self):
         r = self.client.post(
