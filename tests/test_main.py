@@ -26,6 +26,10 @@ class MainTest(unittest.TestCase):
         r = self.client.get('/')
         self.assertEqual(200, r.status_code)
 
+    def test_unknown_food_returns_404(self):
+        r = self.client.get('/madeupfood')
+        self.assertEqual(404, r.status_code)
+
     def test_add_subscriber_stores_valid_values(self):
         r = self.client.post(
             '/api/subscribe',

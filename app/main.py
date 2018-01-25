@@ -80,7 +80,7 @@ def check_food(food_name):
             'unknown_food.html',
             title=food_name,
             page_title=_SITE_TITLE,
-            load_js=True)
+            load_js=True), 404
 
 
 @app.errorhandler(500)
