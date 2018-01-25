@@ -1,7 +1,5 @@
 FROM debian:stretch-20171210
 
-COPY ./app /app
-COPY ./testdata/isitketo_dev_datastore app/
 WORKDIR app/
 
 # Install dependencies
@@ -25,5 +23,5 @@ CMD ${HOME}/google-cloud-sdk/bin/dev_appserver.py \
   --port 8080 \
   --admin_host 0.0.0.0 \
   --admin_port 8000 \
-  --datastore_path isitketo_dev_datastore \
+  --datastore_path /testdata/isitketo_dev_datastore \
   app.yaml

@@ -23,6 +23,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.isitketo_dev
+    volumes:
+      - "../app:/app/"
+      - "./testdata:/testdata/"
     ports:
       - "8000:8000"
       - "8080:8080"
