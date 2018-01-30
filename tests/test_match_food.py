@@ -43,3 +43,11 @@ class MatchFoodTest(unittest.TestCase):
     def test_match_by_adding_es(self):
         _add_dummy_food_to_datastore('Twixes')
         self.assertEqual('twixes', match_food.match('Twix'))
+
+    def test_match_by_replacing_y(self):
+        _add_dummy_food_to_datastore('berries')
+        self.assertEqual('berries', match_food.match('berry'))
+
+    def test_match_by_replacing_ies_with_y(self):
+        _add_dummy_food_to_datastore('berry')
+        self.assertEqual('berry', match_food.match('berries'))
