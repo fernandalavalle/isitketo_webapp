@@ -19,7 +19,12 @@ def _remove_plural(food_name):
 
 
 def _add_plural(food_name):
-    if food_name.lower().endswith('x') or food_name.lower().endswith('s'):
+    food_lower = food_name.lower()
+    if food_lower.endswith('ies'):
+        return food_name[:-3] + 'y'
+    elif food_lower.endswith('x') or food_lower.endswith('s'):
         return food_name + 'es'
+    elif food_lower.endswith('y'):
+        return food_name[:-1] + 'ies'
     else:
         return food_name + 's'
