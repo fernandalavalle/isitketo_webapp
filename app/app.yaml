@@ -18,6 +18,66 @@ handlers:
   static_files: static/favicon.ico
   upload: static/favicon\.ico
 
+- url: /apple-icon-57x57\.png
+  static_files: static/apple-icon-57x57.png
+  upload: /apple-icon-57x57\.png
+
+- url: /apple-icon-60x60\.png
+  static_files: static/apple-icon-60x60.png
+  upload: /apple-icon-60x60\.png
+
+- url: /apple-icon-72x72\.png
+  static_files: static/apple-icon-72x72.png
+  upload: /apple-icon-72x72\.png
+
+- url: /apple-icon-76x76\.png
+  static_files: static/apple-icon-76x76.png
+  upload: /apple-icon-76x76\.png
+
+- url: /apple-icon-114x114\.png
+  static_files: static/apple-icon-114x114.png
+  upload: /apple-icon-114x114\.png
+
+- url: /apple-icon-120x120\.png
+  static_files: static/apple-icon-120x120.png
+  upload: /apple-icon-120x120\.png
+
+- url: /apple-icon-144x144\.png
+  static_files: static/apple-icon-144x144.png
+  upload: /apple-icon-144x144\.png
+
+- url: /apple-icon-152x152\.png
+  static_files: static/apple-icon-152x152.png
+  upload: /apple-icon-152x152\.png
+
+- url: /apple-icon-180x180\.png
+  static_files: static/apple-icon-180x180.png
+  upload: /apple-icon-180x180\.png
+
+- url: /android-icon-192x192\.png
+  static_files: static/android-icon-192x192.png
+  upload: /android-icon-192x192\.png
+
+- url: /favicon-32x32\.png
+  static_files: static/favicon-32x32.png
+  upload: /favicon-32x32\.png
+
+- url: /favicon-96x96\.png
+  static_files: static/favicon-96x96.png
+  upload: /favicon-96x96\.png
+
+- url: /favicon-16x16\.png
+  static_files: static/favicon-16x16.png
+  upload: /favicon-16x16\.png
+
+- url: /manifest.\json
+  static_files: static/manifest.json
+  upload: /manifest.\json
+
+- url: /ms-icon-144x144\.png
+  static_files: static/ms-icon-144x144.png
+  upload: /ms-icon-144x144\.png
+
 - url: /robots\.txt
   static_files: static/robots.txt
   upload: static/robots\.txt
