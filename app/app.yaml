@@ -70,9 +70,9 @@ handlers:
   static_files: static/favicon-16x16.png
   upload: /favicon-16x16\.png
 
-- url: /manifest.\json
+- url: /manifest\.json
   static_files: static/manifest.json
-  upload: /manifest.\json
+  upload: /manifest\.json
 
 - url: /ms-icon-144x144\.png
   static_files: static/ms-icon-144x144.png
