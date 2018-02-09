@@ -8,7 +8,7 @@ To run IsItKeto,
 
 Install dev requirements
 ```bash
-pip install dev_requirements.txt
+pip install -r dev_requirements.txt
 ```
 
 Install Google Cloud SDK following instructions [here.](https://cloud.google.com/appengine/docs/standard/python/download)
