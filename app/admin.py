@@ -4,12 +4,9 @@ import flask
 from google.appengine.api import users
 
 import food
+import sanitizer
 
 app = flask.Flask(__name__)
-
-
-def _sanitize_food_name(food_name):
-    return re.sub(r'[^a-zA-Z\-\.\s&*\+:0-9]', '', food_name)
 
 
 def _make_food_from_form():
@@ -60,7 +57,7 @@ def api_edit_food(food_name):
 @app.route('/admin/edit/<food_name>')
 def edit_food(food_name):
     user = users.get_current_user()
-    food_name = _sanitize_food_name(food_name)
+    food_name = sanitizer.sanitize_food_path(food_name)
     f = food.find_by_name(food_name)
     if f:
         return flask.render_template(

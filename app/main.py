@@ -6,16 +6,13 @@ import flask
 import email_validator
 import food
 import match_food
+import sanitizer
 import sitemap
 import subscriber
 
 _SITE_TITLE = 'Is It Keto?'
 
 app = flask.Flask(__name__)
-
-
-def _sanitize_food_name(food_name):
-    return re.sub(r'[^a-zA-Z\-\.\s&*\+:0-9]', '', food_name)
 
 
 def _format_description(description):
@@ -67,7 +64,7 @@ def add_subscriber():
 
 @app.route('/<food_name>')
 def check_food(food_name):
-    food_name = _sanitize_food_name(food_name)
+    food_name = sanitizer.sanitize_food_name(food_name)
     f = food.find_by_name(food_name)
     if f:
         return flask.render_template(
