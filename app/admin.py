@@ -1,5 +1,3 @@
-import re
-
 import flask
 from google.appengine.api import users
 
