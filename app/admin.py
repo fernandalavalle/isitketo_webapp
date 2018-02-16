@@ -1,5 +1,3 @@
-import re
-
 import flask
 from google.appengine.api import users
 
@@ -8,24 +6,23 @@ import food
 app = flask.Flask(__name__)
 
 
+def _update_food_from_form(food):
+    food.brand = flask.request.form.get('brand')
+    food.title = flask.request.form.get('title')
+    food.variety = flask.request.form.get('variety')
+    food.short_description = flask.request.form.get('short-description')
+    food.description = flask.request.form.get('description')
+    food.has_image = flask.request.form.get('has-image') != None
 
-def _get_food_props_from_form():
-    food_props = {}
-    food_props['brand'] = flask.request.form.get('brand')
-    food_props['title'] = flask.request.form.get('title')
-    food_props['variety'] = flask.request.form.get('variety')
-    food_props['short_description'] = flask.request.form.get('short-description')
-    food_props['description'] = flask.request.form.get('description')
-    food_props['rating'] = int(flask.request.form.get('rating'))
-    food_props['has_image'] = flask.request.form.get('has-image') != None
-
-    return food_props
+    if (flask.request.form.get('rating')):
+        food.rating = int(flask.request.form.get('rating'))
+    return food
 
 
 @app.route('/api/admin/add', methods=['POST'])
 def api_add_food():
-    food_props = _get_food_props_from_form()
-    food.put(food.update_food_props(food_props, food.Food()))
+    f = _update_food_from_form(food.Food())
+    food.put(f)
     return flask.redirect('/%s' % f.key.string_id())
 
 
@@ -41,8 +38,9 @@ def add_food():
 
 @app.route('/api/admin/edit/<food_name>', methods=['POST'])
 def api_edit_food(food_name):
-    food_props = _get_food_props_from_form()
-    f = food.update(food_name, food_props)
+    f = food.find_by_name(food_name)
+    f = _update_food_from_form(f)
+    f = food.update(food_name, f)
     return flask.redirect('/%s' % f.key.string_id())
 
 

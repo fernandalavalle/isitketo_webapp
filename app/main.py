@@ -1,5 +1,4 @@
 import logging
-import re
 
 import flask
 
@@ -12,7 +11,6 @@ import subscriber
 _SITE_TITLE = 'Is It Keto?'
 
 app = flask.Flask(__name__)
-
 
 
 def _format_description(description):

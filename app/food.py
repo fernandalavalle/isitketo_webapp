@@ -1,4 +1,3 @@
-from datetime import datetime
 import re
 
 from google.appengine.ext import ndb
@@ -27,10 +26,8 @@ def put(food):
     food.put()
 
 
-def update(existing_food_name, food_props):
+def update(existing_food_name, updated_food):
     """Updates food in datastore, deleting old key if the brand, title, or variety have changed."""
-    updated_food = update_food_props(find_by_name(existing_food_name), food_props)
-
     existing_key = name_to_key(existing_food_name)
     new_key = food_to_key(updated_food)
 
@@ -40,13 +37,6 @@ def update(existing_food_name, food_props):
         existing_key.delete()
         put(updated_food)
     return updated_food
-
-
-def update_food_props(food, food_props):
-    """Updates the properties for a Food object based on food_props dictionary key-values."""
-    for key in food_props:
-        setattr(food, key, food_props[key])
-    return food
 
 
 def find_by_name(name):
