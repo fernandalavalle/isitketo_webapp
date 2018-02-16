@@ -1,30 +1,33 @@
-# coding=utf-8
 import re
 
 
-def sanitize_food_name(food_name):
-    return re.sub(r'[^a-zA-Z\-\.\s&*\+:0-9]', '', food_name)
-
-
-def sanitize_food_path(food_path):
+def food_name(food_name):
     """Sanitizes the food keys in the admin/edit/<food_name> path.
 
-    Special handling of unicode apostrophe, &, ñ and e with an accent.
+    Replaces unicode characters to corresponding ASCII characters. This allows unicode to be mapped
+    as expected to comparable ASCII names.
+
+    Ex: u'jalapeno\u's -> jalapenos
+
+    Replaces characters that are not legal in file paths by GCS or Linux/Windows. Does not affect
+    how food names will appear to the user.
+
     """
-    # ñ to n
-    cleaner = re.sub(u'\u00f1', 'n', food_path)
-    # Unicode apostrophe to apostrophe
-    cleaner = re.sub(u'\u2019', '\'', cleaner)
-    # e with an accent
+    # n tilde to n.
+    cleaner = re.sub(u'\u00f1', 'n', food_name)
+    # e with an accent to e.
     cleaner = re.sub(u'[\u00e8-\u00eb]', 'e', cleaner)
+    # Gets rid of Unicode and ASCII apostrophes.
+    cleaner = re.sub(u'\u2019', '', cleaner)
+    cleaner = re.sub(r'\'', '', cleaner)
     cleaner = re.sub('&', '-and-', cleaner)
-    # Get rid of "
+    # Get rid of ".
     cleaner = re.sub(u'[\u201c-\u201d]', '', cleaner)
-    # Dashes to dashes
+    # Unicode dashes to spaces that will then become ASCII dashes below.
     cleaner = re.sub(u'[\u2010-\u2015]', ' ', cleaner)
-    # Make all other
+    # Make all other symbols into -.
     cleaner = re.sub(r'[^-\d\w%\']|\s|_', '-', cleaner)
-    # Get rid of double hyphens
+    # Collapse neighboring hyphens into one.
     cleaner = re.sub(r'-{2,}', '-', cleaner)
-    # Get ride of trailing or leading symbols
+    # Get rid of trailing or leading symbols.
     return re.sub(r'^[^\d\w]|[^\d\w]$', '', cleaner)

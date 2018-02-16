@@ -2,7 +2,7 @@ import flask
 from google.appengine.api import users
 
 import food
-import sanitizer
+import main
 
 app = flask.Flask(__name__)
 
@@ -54,13 +54,17 @@ def api_edit_food(food_name):
 
 @app.route('/admin/edit/<food_name>')
 def edit_food(food_name):
-    user = users.get_current_user()
-    food_name = sanitizer.sanitize_food_path(food_name)
+    print "got to edit food path"
+    print food.name_to_key(food_name).get()
     f = food.find_by_name(food_name)
     if f:
+        user = users.get_current_user()
+        name = food.food_to_name(f)
         return flask.render_template(
             'food_form.html',
-            page_title=('Edit food - %s' % food_name),
+            page_title=('Edit food - %s' % name),
             nickname=user.nickname(),
-            food_name=food_name,
+            food_name=name,
             food=f)
+    else:
+        return main.render_unknown_food(food_name)

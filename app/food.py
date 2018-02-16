@@ -1,4 +1,4 @@
-import re
+import sanitizer
 
 from google.appengine.ext import ndb
 
@@ -44,7 +44,7 @@ def food_to_key(food):
 
 def name_to_key(name):
     key = name.lower()
-    key = re.sub(r'[^a-z]', '-', key)
+    key = sanitizer.food_name(key)
     return ndb.Key(Food, key)
 
 

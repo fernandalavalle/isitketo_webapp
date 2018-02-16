@@ -5,7 +5,6 @@ import flask
 import email_validator
 import food
 import match_food
-import sanitizer
 import sitemap
 import subscriber
 
@@ -63,7 +62,6 @@ def add_subscriber():
 
 @app.route('/<food_name>')
 def check_food(food_name):
-    food_name = sanitizer.sanitize_food_name(food_name)
     f = food.find_by_name(food_name)
     if f:
         return flask.render_template(
@@ -77,11 +75,15 @@ def check_food(food_name):
     if matching_name:
         return flask.redirect('%s' % matching_name)
     else:
-        return flask.render_template(
-            'unknown_food.html',
-            title=food_name,
-            page_title=_SITE_TITLE,
-            load_js=True), 404
+        return render_unknown_food(food_name)
+
+
+def render_unknown_food(food_name):
+    return flask.render_template(
+        'unknown_food.html',
+        title=food_name,
+        page_title=_SITE_TITLE,
+        load_js=True), 404
 
 
 @app.errorhandler(500)
