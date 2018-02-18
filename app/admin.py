@@ -54,8 +54,6 @@ def api_edit_food(food_name):
 
 @app.route('/admin/edit/<food_name>')
 def edit_food(food_name):
-    print "got to edit food path"
-    print food.name_to_key(food_name).get()
     f = food.find_by_name(food_name)
     if f:
         user = users.get_current_user()
