@@ -25,5 +25,6 @@ class FoodTest(unittest.TestCase):
             ('***Delicious Brownies***', 'delicious-brownies'))  # yapf: disable
         for raw, expected in cases:
             actual = food.name_to_key(raw)
-            self.assertEqual(actual.id(), expected, '[%s] != [%s] (original=[%s])' %
-                             (actual, expected, raw))
+            self.assertEqual(actual.id(), expected,
+                             '[%s] != [%s] (original=[%s])' % (actual, expected,
+                                                               raw))
