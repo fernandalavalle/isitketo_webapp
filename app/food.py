@@ -21,7 +21,7 @@ def _sanitize_food_name(food_name):
 
 
 def put(food):
-    """Inserts food into datastore."""
+    """Inserts food into the datastore."""
     food.key = food_to_key(food)
     food.put()
 
@@ -49,8 +49,35 @@ def food_to_key(food):
 
 
 def name_to_key(name):
+    """Replaces characters that are not legal in file paths by GCS or Linux/Windows.
+
+    Ex: u'jalape\u00f1os -> jalapenos
+
+    Args:
+        name: A food name as presented to a user.
+
+    Returns:
+        A key that represents the canonical form of a food name.
+    """
     key = name.lower()
-    key = re.sub(r'[^a-z]', '-', key)
+    # n tilde to n.
+    key = re.sub(u'\u00f1', 'n', key)
+    # e with an accent to e.
+    key = re.sub(u'[\u00e8-\u00eb]', 'e', key)
+    # Gets rid of Unicode and ASCII apostrophes.
+    key = re.sub(u'\u2019', '', key)
+    key = re.sub(r'\'', '', key)
+    key = re.sub('&', '-and-', key)
+    # Get rid of ".
+    key = re.sub(u'[\u201c-\u201d]', '', key)
+    # Unicode dashes to ASCII dashes.
+    key = re.sub(u'[\u2010-\u2015]', '-', key)
+    # Make all other symbols into -.
+    key = re.sub(r'[^-\d\w%\']|\s|_', '-', key)
+    # Collapse neighboring hyphens into one.
+    key = re.sub(r'-{2,}', '-', key)
+    # Get rid of trailing or leading symbols.
+    key = re.sub(r'^[^\d\w]|[^\d\w]$', '', key)
     return ndb.Key(Food, key)
 
 

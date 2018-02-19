@@ -75,11 +75,15 @@ def check_food(food_name):
     if matching_name:
         return flask.redirect('%s' % matching_name)
     else:
-        return flask.render_template(
-            'unknown_food.html',
-            title=food_name,
-            page_title=_SITE_TITLE,
-            load_js=True), 404
+        return render_unknown_food(food_name)
+
+
+def render_unknown_food(food_name):
+    return flask.render_template(
+        'unknown_food.html',
+        title=food_name,
+        page_title=_SITE_TITLE,
+        load_js=True), 404
 
 
 @app.errorhandler(500)
