@@ -7,30 +7,22 @@ import main
 app = flask.Flask(__name__)
 
 
-def _make_food_from_form():
-    brand = flask.request.form.get('brand')
-    title = flask.request.form.get('title')
-    variety = flask.request.form.get('variety')
-    short_description = flask.request.form.get('short-description')
-    description = flask.request.form.get('description')
-    rating = int(flask.request.form.get('rating'))
-    has_image = flask.request.form.get('has-image') != None
+def _update_food_from_form(food):
+    food.brand = flask.request.form.get('brand')
+    food.title = flask.request.form.get('title')
+    food.variety = flask.request.form.get('variety')
+    food.short_description = flask.request.form.get('short-description')
+    food.description = flask.request.form.get('description')
+    food.has_image = flask.request.form.get('has-image') != None
 
-    f = food.Food(
-        brand=brand,
-        title=title,
-        variety=variety,
-        short_description=short_description,
-        description=description,
-        rating=rating,
-        has_image=has_image)
-
-    return f
+    if (flask.request.form.get('rating')):
+        food.rating = int(flask.request.form.get('rating'))
+    return food
 
 
 @app.route('/api/admin/add', methods=['POST'])
 def api_add_food():
-    f = _make_food_from_form()
+    f = _update_food_from_form(food.Food())
     food.put(f)
     return flask.redirect('/%s' % f.key.string_id())
 
@@ -47,7 +39,8 @@ def add_food():
 
 @app.route('/api/admin/edit/<food_name>', methods=['POST'])
 def api_edit_food(food_name):
-    f = _make_food_from_form()
+    f = food.find_by_name(food_name)
+    f = _update_food_from_form(f)
     f = food.update(food_name, f)
     return flask.redirect('/%s' % f.key.string_id())
 
