@@ -112,7 +112,7 @@ class DocStringChecker(BaseChecker):
   # TODO: Should we enforce Examples?
   VALID_SECTIONS = ('Args', 'Returns', 'Yields', 'Raises',)
 
-  def visit_function(self, node):
+  def visit_functiondef(self, node):
     """Verify function docstrings"""
     if node.doc:
       lines = node.doc.split('\n')
@@ -134,7 +134,7 @@ class DocStringChecker(BaseChecker):
         return
       self.add_message('C9001', node=node)
 
-  def visit_class(self, node):
+  def visit_classdef(self, node):
     """Verify class docstrings"""
     if node.doc:
       self._check_common(node)
