@@ -16,10 +16,6 @@ class Food(ndb.Model):
     last_modified_time = ndb.DateTimeProperty(auto_now=True)
 
 
-def _sanitize_food_name(food_name):
-    return re.sub(r'[^a-zA-Z\-\.\s&*\+:0-9]', '', food_name)
-
-
 def put(food):
     """Inserts food into the datastore."""
     food.key = food_to_key(food)
@@ -39,7 +35,7 @@ def update(existing_food_name, updated_food):
 
 
 def find_by_name(name):
-    key = name_to_key(_sanitize_food_name(name))
+    key = name_to_key(name)
     return key.get()
 
 
