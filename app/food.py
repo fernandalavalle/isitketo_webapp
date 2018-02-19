@@ -15,7 +15,7 @@ class Food(ndb.Model):
 
 
 def put(food):
-    """Inserts food into datastore."""
+    """Inserts food into the datastore."""
     food.key = food_to_key(food)
     food.put()
 
