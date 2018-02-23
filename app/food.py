@@ -42,7 +42,7 @@ def food_to_key(food):
     return name_to_key(food_to_name(food))
 
 
-def name_to_key(name):
+def name_to_key(name):  #pylint: disable=docstring-section-indent
     """Replaces characters that are not legal in file paths by GCS or Linux/Windows.
 
     Ex: u'jalape\u00f1os -> jalapenos
