@@ -5,7 +5,7 @@
 
 # Dev Installation
 
-To run IsItKeto:
+To run IsItKeto,
 
 Install dev requirements
 ```bash
