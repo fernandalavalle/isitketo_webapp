@@ -7,7 +7,7 @@ import main
 app = flask.Flask(__name__)
 
 
-def _update_food_from_form(food):
+def _populate_food_from_form(food):
     food.brand = flask.request.form.get('brand')
     food.title = flask.request.form.get('title')
     food.variety = flask.request.form.get('variety')
@@ -22,7 +22,7 @@ def _update_food_from_form(food):
 
 @app.route('/api/admin/add', methods=['POST'])
 def api_add_food():
-    f = _update_food_from_form(food.Food())
+    f = _populate_food_from_form(food.Food())
     food.put(f)
     return flask.redirect('/%s' % f.key.string_id())
 
@@ -40,7 +40,7 @@ def add_food():
 @app.route('/api/admin/edit/<food_name>', methods=['POST'])
 def api_edit_food(food_name):
     f = food.find_by_name(food_name)
-    f = _update_food_from_form(f)
+    f = _populate_food_from_form(f)
     f = food.update(food_name, f)
     return flask.redirect('/%s' % f.key.string_id())
 
