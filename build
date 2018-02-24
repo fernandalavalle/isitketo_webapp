@@ -24,7 +24,7 @@ pyflakes app/*.py tests/*.py
 
 # Check docstrings for style consistency.
 PYTHONPATH=$PYTHONPATH:$(pwd)/third_party/docstringchecker \
-  pylint --reports=n app tests e2e
+  pylint --reports=n --rcfile=.pylintrc app tests e2e
 
 if [ "$1" != "--quick" ]; then
   pushd e2e

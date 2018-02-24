@@ -9,5 +9,5 @@ OUTPUT_FILE="${OUTPUT_DIR}/lint.py"
 wget \
   https://chromium.googlesource.com/chromiumos/chromite/+/master/cli/cros/lint.py?format=TEXT \
   -O - | \
-  base64 --decode | sed "s/visit_function(/visit_functiondef(/; s/visit_class(/visit_classdef(/" \
+  base64 --decode | sed "s/return node.col_offset + 2/return node.col_offset + 4/" \
   > "$OUTPUT_FILE"
