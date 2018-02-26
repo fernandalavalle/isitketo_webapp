@@ -1,7 +1,9 @@
+# Need to specify the version so that astroid is compatible with old version of pylint
 astroid==1.3.8
 coverage
 flask==0.12.0
 pyflakes==1.6.0
+# Using an old version of pylint that is compatible with DocStringChecker
 pylint==1.4.4
 pyyaml
 yapf==0.17.0

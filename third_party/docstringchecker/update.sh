@@ -6,6 +6,7 @@ set -x
 OUTPUT_DIR=$(dirname "$0")
 OUTPUT_FILE="${OUTPUT_DIR}/lint.py"
 
+# Modifying DocStringChecker to expect 4-space indents instead of 2
 wget \
   https://chromium.googlesource.com/chromiumos/chromite/+/master/cli/cros/lint.py?format=TEXT \
   -O - | \
